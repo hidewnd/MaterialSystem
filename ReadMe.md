@@ -46,12 +46,12 @@
 
 ```bash
 com.lyne     
-├── material-android          							// android端
-├── material-api             							// 接口模块
+├── material-android          				                  // android端
+├── material-api             			                    	// 接口模块
 │       └── material-api-system                         // 系统接口
 │       └── material-api-material                       // 物料接口
-├── material-auth           						 	// 认证中心 [7010]
-├── ruoyi-common          								// 通用模块
+├── material-auth           				                    // 认证中心 [7010]
+├── ruoyi-common          				                      // 通用模块
 │       └── ruoyi-common-cache                          // 缓存模块
 │              └── ruoyi-common-mongo                   // MongDB缓存模块
 │              └── ruoyi-common-redis                   // Redis缓存模块
@@ -59,17 +59,17 @@ com.lyne
 │       └── ruoyi-common-log                            // 日志记录
 │       └── ruoyi-common-mq                             // 消息队列模块
 │       └── ruoyi-common-security                       // 安全模块
-│       └── ruoyi-common-web                     		// web服务模块
-├── material-gateway         							// 网关模块 [8001]
-├── ruoyi-modules        								// 业务模块
-│       └── material-module-manufactureManager   		// 生产管理服务 [7060]
+│       └── ruoyi-common-web                          	// web服务模块
+├── material-gateway         			                    	// 网关模块 [8001]
+├── ruoyi-modules        							                	// 业务模块
+│       └── material-module-manufactureManager        	// 生产管理服务 [7060]
 │       └── material-module-material                    // 基础物料服务 [7040]
 │       └── material-module-materialManager             // 物料管理服务 [7070]
 │       └── material-module-system                      // 系统服务 [9300]
 │       └── material-module-workflowServer              // 工作流服务 [9300]
-├── ruoyi-test          								// 通用测试服务
-├── ruoyi-vue          									// 前端框架 [80]
-├──pom.xml                // 公共依赖
+├── ruoyi-test          							                	// 通用测试服务
+├── ruoyi-vue          							                		// 前端框架 [80]
+├──pom.xml                                              // 公共依赖
 
 ```
 
