@@ -1,5 +1,5 @@
 # 基于微服务的物料管理系统
-
+[![license](https://img.shields.io/hexpm/l/plug.svg?style=flat-square)](https://github.com/hidewnd/MaterialSystem/blob/master/LICENSE)
 ——2022毕业设计整理
 
 **基于 vue-next-admin/Element UI 和 Spring Boot/Spring Cloud & Alibaba 前后端分离的分布式微服务架构**
@@ -8,7 +8,7 @@
 
 本项目是旨在基于当下自身的技术栈开发的一套微服务框架，并遵循高内聚、低耦合原则将系统各模块进行拆分。并在此基础上实现的业务服务
 
-- 采用前后端分离模式，微服务前端采用开源项目[vue-next-admin](https://gitee.com/lyt-top/vue-next-admin.git) 
+- 采用前后端分离模式，微服务前端采用开源项目[vue-next-admin](https://github.com/lyt-Top/vue-next-admin) 
 - 后端采用Spring Boot、Spring Cloud & Alibaba。
 - 注册中心、配置中心选型Nacos，权限认证采用Redis+Oauth2.0+JWT方案。
 - 业务模块基于领域驱动设计实现解耦，提高扩展性
