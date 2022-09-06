@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyne.module.system.mapper.SysRoleMapper">
+
+    <!--通过用户ID查询角色-->
+    <select id="selectByAccountId" resultType="com.lyne.common.core.types.SysRole">
+        SELECT *
+        FROM `sys_role` AS role
+        WHERE role.roleId IN (
+            SELECT ra.roleId
+            FROM `role_account` AS ra
+                     INNER JOIN `sys_account` AS account ON ra.accountId = account.accountId
+                AND account.accountId = #{accountId} AND ra.delFlag = 0 AND ra.status = 0
+        )
+    </select>
+
+    <!--分页查询-->
+    <select id="selectByPage" resultType="com.lyne.common.core.types.SysRole">
+        select roleId,
+               roleName,
+               roleNameZh,
+               roleSort,
+               stated,
+               delFlag,
+               createBy,
+               createDate,
+               updateBy,
+               updateDate,
+               remark
+        from sys_role
+        where delFlag = 0
+    </select>
+
+    <!--角色绑定权限-->
+    <insert id="bindMenu">
+        INSERT INTO role_menu(roleId, menuId, createBy, createDate, updateBy, updateDate)
+        VALUES (#{roleId}, #{menuId}, #{operator}, now(), #{operator}, now())
+        ON DUPLICATE KEY UPDATE status     = 0,
+                                delFlag    = 0,
+                                createBy   = #{operator},
+                                createDate = NOW(),
+                                updateBy   = #{operator},
+                                updateDate = now()
+    </insert>
+
+    <!--角色解除绑定权限-->
+    <update id="removeMenu">
+        UPDATE role_menu
+        SET delFlag    = 1,
+            updateDate = now(),
+            updateBy   = #{operator}
+        WHERE roleId = #{roleId}
+          AND menuId = #{menuId}
+    </update>
+
+    <!--角色设置绑定权限状态-->
+    <update id="setBindStatus">
+        UPDATE role_menu
+        SET status     = #{status.value},
+            updateDate = now(),
+            updateBy   = #{operator}
+        WHERE roleId = #{roleId}
+          AND menuId = #{menuId}
+    </update>
+
+</mapper>

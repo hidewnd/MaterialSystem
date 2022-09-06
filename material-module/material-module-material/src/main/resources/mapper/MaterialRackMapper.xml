@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyne.module.material.mapper.MaterialRackMapper">
+
+    <!--库存详情查询-->
+
+    <!--获取所有货架中所有物料信息-->
+    <select id="getAllMaterial" resultMap="materialMap">
+        <include refid="selectRack_material"/>
+    </select>
+
+    <!--查询指定的物料信息-->
+    <select id="getMaterialList" resultMap="materialMap">
+        <include refid="selectRack_material"/>
+        <where>
+            <if test="rackId !=null and rackId !=''">
+                and `rack.id` = #{rackId}
+            </if>
+            <if test="recordId !=null and recordId !=''">
+                and `record_id` = #{recordId}
+            </if>
+            <if test="materialId !=null and materialId !=''">
+                and `mat.id` = #{materialId}
+            </if>
+        </where>
+    </select>
+
+    <!--查询指定的物料信息-->
+    <select id="getMaterial" resultMap="materialMap">
+        <include refid="selectRack_material"/>
+        where `rack.id` = #{rackId}
+        and `record_id` = IFNULL(#{recordId}, 1)
+        and `mat.id` = #{materialId}
+    </select>
+
+    <!--获取指定货架中指定物料的绑定数量-->
+    <select id="getMaterialStock" resultType="long">
+        select stock
+        from mr_rack_material
+        where rack_id = #{rackId}
+          and `record_id` = IFNULL(#{recordId}, 1)
+          and material_id = #{materialId}
+    </select>
+
+    <!--获取指定货架中所有物料ID-->
+    <select id="getMaterialIds" resultType="java.lang.String">
+        SELECT `mat.id`
+        FROM view_rack_material
+        WHERE `rack.id` = #{rackId}
+    </select>
+
+    <!--获取指定货架的即时可容纳容量值-->
+    <select id="getActualCapacity" resultType="long">
+        SELECT IFNULL(`rack.max_capacity` - SUM(`mat.stock`), -1)
+        FROM view_rack_material
+        where `rack.id` = #{rackId}
+    </select>
+
+    <!--分页查询 货架-->
+    <select id="selectByPage" resultType="com.lyne.common.core.types.MaterialRack">
+        select rack_id,
+               depot_id,
+               max_capacity,
+               description,
+               status,
+               del_flag,
+               createBy,
+               createDate,
+               updateBy,
+               updateDate,
+               remark
+        from mr_rack
+    </select>
+
+    <!--分页查询 物料库存-->
+    <select id="selectStockByPage" resultMap="materialMap">
+        <include refid="selectRack_material"/>
+    </select>
+
+    <!--货架绑定物料信息-->
+    <insert id="bindMaterial">
+        insert into mr_rack_material(`rack_id`, `material_id`, `record_id`, `stock`)
+        values (#{rackId}, #{materialId}, IFNULL(#{recordId}, 1), #{stock})
+        on duplicate key update stock = stock + #{stock}
+    </insert>
+
+    <!--货架取消绑定物料信息-->
+    <delete id="removeMaterial">
+        update mr_rack_material
+        set stock = stock - #{stock}
+        where rack_id = #{rackId}
+          and record_id = IFNULL(#{recordId}, 1)
+          and material_id = #{materialId}
+          and (stock - #{stock}) >= 0
+    </delete>
+
+    <!--货架修改绑定物料信息-->
+    <update id="updateMaterial">
+        update mr_rack_material
+        set stock = #{stock}
+        where rack_id = #{rackId}
+          and record_id = IFNULL(#{recordId}, 1)
+          and material_id = #{materialId}
+          and #{stock} >= 0
+    </update>
+
+    <sql id="selectRack_material">
+        select `mat.id`,
+               `mat.type_id`,
+               `mat.name`,
+               `mat.name_zh`,
+               `mat.value`,
+               `mat.ratio`,
+               `mat.message`,
+               `mat.status`,
+               `mat.del_flag`,
+               `mat.createby`,
+               `mat.createdate`,
+               `mat.updateby`,
+               `mat.updatedate`,
+               `mat.remark`,
+               `mat.stock`,
+               `record_id`
+        from `view_rack_material`
+    </sql>
+
+    <resultMap id="materialMap" type="com.lyne.common.core.types.Material">
+        <id column="mat.id" property="materialId"/>
+        <result column="mat.stock" property="stock"/>
+        <result column="record_id" property="recordId"/>
+        <result column="mat.type_id" property="materialTypeId"/>
+        <result column="mat.name" property="materialName"/>
+        <result column="mat.name_zh" property="materialNameZh"/>
+        <result column="mat.value" property="value"/>
+        <result column="mat.ratio" property="capacityRatio"/>
+        <result column="mat.message" property="message"/>
+        <result column="mat.status" property="status"/>
+        <result column="mat.del_flag" property="delFlag"/>
+        <result column="mat.createBy" property="createBy"/>
+        <result column="mat.createDate" property="createDate"/>
+        <result column="mat.updateBy" property="updateBy"/>
+        <result column="mat.updateDate" property="updateDate"/>
+        <result column="mat.remark" property="remark"/>
+    </resultMap>
+
+</mapper>

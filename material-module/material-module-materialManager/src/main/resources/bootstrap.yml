@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: material-module-manager-material
+  profiles:
+    active: dev
+  cloud:
+    sentinel:
+      transport:
+        port: 9983
+        dashboard: 192.168.128.128:9999
+        heartbeat-interval-ms: 500
+      eager: true
+    nacos:
+      server-addr: #**********************
+      discovery:
+        group: MATERIAL
+        namespace: #**********************
+      config:
+        group: MATERIAL
+        namespace: #**********************
+        name: ${spring.application.name}
+        username: server
+        password: server
+        extension-configs:
+          - data-id: material-module-manange-material-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: rabbitmq-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: redis-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: mongodb-dev.yaml
+            group: MATERIAL
+            refresh: true
+    loadbalancer:
+      cache:
+        enabled: true
+        caffeine:
+          spec: initialCapacity=500,expireAfterWrite=5s

@@ -1,0 +1,50 @@
+#server:
+#  port: 7070
+#thread:
+#  pool:
+#    corePoolSize: 15
+#    maxPoolSize: 20
+#    queueCapacity: 50
+#    keepAliveSeconds: 60
+#spring:
+#  # redis
+#  redis:
+#    host: localhost
+#    database: 1
+#    port: 6379
+#    jedis:
+#      pool:
+#        max-active: 8
+#        max-wait: -1
+#        max-idle: 500
+#        min-idle: 0
+#    lettuce:
+#      shutdown-timeout: 120
+#  # rabbitmq
+#  rabbitmq:
+#    host: 192.168.128.128
+#    port: 5672
+#    username: server
+#    password: server
+#    virtual-host: /
+#    publisher-returns: true
+#    publisher-confirm-type: correlated
+#    listener:
+#      simple:
+#        acknowledge-mode: manual
+#        prefetch: 100
+#  # date
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+#    time-zone: GMT+8
+#  mvc:
+#    throw-exception-if-no-handler-found: true
+#  web:
+#    resources:
+#      add-mappings: false
+#  # mongoDB
+#  data:
+#    mongodb:
+#      uri: mongodb://192.168.128.128:27017/material
+#  jpa:
+#    open-in-view: false

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyne.module.material.mapper.MaterialDepotMapper">
+
+    <!--获取指定仓库中所有货架-->
+    <select id="getRack" resultType="com.lyne.common.core.types.MaterialRack">
+        SELECT rack_id,
+               depot_id,
+               max_capacity,
+               description,
+               status,
+               del_flag,
+               createBy,
+               createDate,
+               updateBy,
+               updateDate,
+               remark
+        FROM mr_rack
+        where depot_id = #{depotId}
+    </select>
+
+    <!--获取指定货架-->
+    <select id="getRackByRack" resultType="com.lyne.common.core.types.MaterialRack">
+        SELECT rack_id,
+               depot_id,
+               max_capacity,
+               description,
+               status,
+               del_flag,
+               createBy,
+               createDate,
+               updateBy,
+               updateDate,
+               remark
+        FROM mr_rack
+        where rack_id = #{rackId}
+          and depot_id = #{depotId}
+    </select>
+    <!--分页查询-->
+    <select id="selectByPage" resultType="com.lyne.common.core.types.MaterialDepot">
+        select depot_id,
+               depot_name,
+               depot_name_zh,
+               place,
+               description,
+               max_capacity,
+               threshold,
+               capacity,
+               status,
+               del_flag,
+               createBy,
+               createDate,
+               updateBy,
+               updateDate,
+               remark
+        from mr_depot
+    </select>
+
+</mapper>

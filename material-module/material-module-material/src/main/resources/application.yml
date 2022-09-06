@@ -1,0 +1,91 @@
+#server:
+#  port: 7040
+
+#mybatis-plus:
+#  type-aliases-package: com.lyne.common.core.types
+#  mapper-locations: classpath:mapper/*.xml
+#  configuration:
+#    map-underscore-to-camel-case: true
+#  global-config:
+#    db-config:
+#      logic-not-delete-value: 0
+#      logic-delete-field: delFlag
+# spring:
+#  mvc:
+#    throw-exception-if-no-handler-found: true
+#    static-path-pattern: /**
+#  web:
+#    resources:
+#      add-mappings: false
+#  redis:
+#    host: localhost
+#    database: 0
+#    port: 6379
+#  rabbitmq:
+#    virtual-host: /
+#    host: 192.168.128.130
+#    port: 5672
+#    username: server
+#    password: server
+#    publisher-confirm-type: correlated
+#    publisher-returns: true
+#    listener:
+#      simple:
+#        acknowledge-mode: manual
+#        concurrency: 5
+#        max-concurrency: 10
+#        prefetch: 1
+#        retry:
+#          initial-interval: 5000ms
+#          enabled: true
+#          max-attempts: 5
+#        default-requeue-rejected: true
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+#    time-zone: GMT+8
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/material_material?userUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: 123456
+#    tomcat:
+#      test-while-idle: false
+#    druid:
+#      # 初始化连接池的连接数量 大小，最小，最大
+#      initial-size: 10
+#      min-idle: 3
+#      max-active: 20
+#      # 配置获取连接等待超时的时间
+#      max-wait: 60000
+#      #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+#      time-between-eviction-runs-millis: 60000
+#      # 配置一个连接在池中最小生存的时间，单位是毫秒
+#      min-evictable-idle-time-millis: 30000
+#      validation-query: SELECT 1 FROM DUAL
+#      test-while-idle: true
+#      test-on-borrow: true
+#      test-on-return: false
+#      # 是否缓存preparedStatement，也就是PSCache  官方建议MySQL下建议关闭   个人建议如果想用SQL防火墙 建议打开
+#      pool-prepared-statements: false
+#      max-pool-prepared-statement-per-connection-size: 20
+#      # 监控页面
+#      stat-view-servlet:
+#        enabled: true
+#        reset-enable: true
+#        url-pattern: /druid/*
+#        login-username: admin
+#        login-password: 123456
+#      # 基础监控配置
+#      web-stat-filter:
+#        enabled: true
+#        url-pattern: /*
+#        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+#        session-stat-enable: true
+#        session-stat-max-count: 100
+#      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+#      filter:
+#        stat:
+#          merge-sql: true
+#          log-slow-sql: true
+#          slow-sql-millis: 500

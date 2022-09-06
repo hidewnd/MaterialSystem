@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyne.module.material.mapper.MaterialMapper">
+
+    <!--分页查询-->
+    <select id="selectByPage" resultType="com.lyne.common.core.types.Material">
+        select material_id,
+               material_type_id,
+               material_name,
+               material_name_zh,
+               value,
+               capacity_ratio,
+               message,
+               status,
+               del_flag,
+               createBy,
+               createDate,
+               updateBy,
+               updateDate,
+               remark
+        from mr_material
+        where status = 0
+    </select>
+</mapper>

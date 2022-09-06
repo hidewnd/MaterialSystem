@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: material-module-material
+  profiles:
+    active: dev
+  cloud:
+    sentinel:
+      transport:
+        port: 9982
+        dashboard: #**********************
+        heartbeat-interval-ms: 500
+      eager: true
+    loadbalancer:
+      cache:
+        enabled: true
+        caffeine:
+          spec: initialCapacity=500,expireAfterWrite=5s
+    nacos:
+      server-addr: #**********************
+      discovery:
+        group: MATERIAL
+        namespace: #**********************
+      config:
+        name: ${spring.application.name}
+        username: server
+        password: server
+        group: MATERIAL
+        namespace: #**********************
+        file-extension: yaml
+        extension-configs:
+          - data-id: spring-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: material-module-material-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: rabbitmq-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: redis-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: datasource-material-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: mybatis-plus-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: mybatis-datasource-dev.yaml
+            group: MATERIAL
+            refresh: true

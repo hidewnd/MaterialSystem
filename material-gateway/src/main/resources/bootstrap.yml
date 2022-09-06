@@ -1,0 +1,35 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: material-gateway
+  profiles:
+    active: dev
+  cloud:
+    loadbalancer:
+      cache:
+        enabled: true
+        caffeine:
+          spec: initialCapacity=500,expireAfterWrite=5s
+    nacos:
+      server-addr: #**********************
+      discovery:
+        group: MATERIAL
+        namespace: #**********************
+      config:
+        name: ${spring.application.name}
+        username: server
+        password: server
+        group: MATERIAL
+        namespace: #**********************
+        file-extension: yaml
+        extension-configs:
+          - data-id: material-gateway.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: feign-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: redis-dev.yaml
+            group: MATERIAL
+            refresh: true

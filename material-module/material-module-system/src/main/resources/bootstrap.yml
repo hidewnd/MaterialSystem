@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: material-module-system
+  profiles:
+    active: dev
+  cloud:
+    sentinel:
+      transport:
+        port: 9980
+        dashboard: 192.168.128.128:9999
+        heartbeat-interval-ms: 500
+      eager: true
+    nacos:
+      server-addr: #**********************
+      discovery:
+        group: MATERIAL
+        namespace: #**********************
+      config:
+        group: MATERIAL
+        namespace: #**********************
+        name: ${spring.application.name}
+        username: server
+        password: server
+        file-extension: yaml
+        extension-configs:
+          - data-id: spring-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: material-module-system-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: rabbitmq-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: redis-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: datasource-system-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: mybatis-plus-dev.yaml
+            group: MATERIAL
+            refresh: true
+          - data-id: mybatis-datasource-dev.yaml
+            group: MATERIAL
+            refresh: true

@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.lyne.common.security.config.FeignRequestInterceptor,\
+  com.lyne.common.security.handler.GlobalExceptionHandler,\
+  com.lyne.common.security.aspect.InnerAuthAspect,\
+  com.lyne.common.security.aspect.PreAuthorizeAspect

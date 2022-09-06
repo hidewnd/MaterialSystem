@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_order"
+        android:icon="@drawable/icon_order"
+        android:title="记录查询" />
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/icon_home"
+        android:title="主界面" />
+    <item
+        android:id="@+id/nav_mine"
+        android:icon="@drawable/icon_mine"
+        android:title="位置查询" />
+</menu>

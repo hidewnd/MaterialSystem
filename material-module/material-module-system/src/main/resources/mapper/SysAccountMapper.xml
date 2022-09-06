@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyne.module.system.mapper.SysAccountMapper">
+    <!--设置绑定状态-->
+    <update id="setBindStatus">
+        UPDATE role_account
+        SET status     = #{status.value},
+            updateDate = now(),
+            updateBy   = #{operator}
+        WHERE roleId = #{roleId}
+          AND accountId = #{accountId}
+    </update>
+
+    <!--移除绑定角色-->
+    <update id="removeRole">
+        UPDATE role_account
+        SET delFlag    = 1,
+            updateDate = now(),
+            updateBy   = #{operator}
+        WHERE roleId = #{roleId}
+          AND accountId = #{accountId}
+    </update>
+
+    <!--分页查询-->
+    <select id="selectByPage" resultMap="accountResultMap">
+        select accountId,
+               username,
+               password,
+               status,
+               delFlag,
+               createBy,
+               createDate,
+               updateBy,
+               updateDate,
+               remark
+        from sys_account
+        where delFlag = 0
+    </select>
+
+    <!--绑定角色-->
+    <insert id="bindRole">
+        INSERT INTO role_account(roleId, accountId, createBy, createDate, updateBy, updateDate)
+        VALUES (#{roleId}, #{accountId}, #{operator}, now(), #{operator}, now())
+        ON DUPLICATE KEY UPDATE status     = 0,
+                                delFlag    = 0,
+                                createBy   = #{operator},
+                                createDate = NOW(),
+                                updateBy   = #{operator},
+                                updateDate = now()
+    </insert>
+
+    <select id="selectOneByName" resultMap="accountResultMap">
+        select accountId,
+               username,
+               password,
+               status,
+               delFlag,
+               createBy,
+               createDate,
+               updateBy,
+               updateDate,
+               remark
+        from sys_account
+        where username = #{username}
+    </select>
+
+
+    <resultMap id="accountResultMap" type="com.lyne.common.core.types.SysAccount">
+        <id column="accountId" jdbcType="VARCHAR" property="accountId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"
+                typeHandler="com.lyne.common.core.handler.AESEncryptHandler"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="delFlag" jdbcType="INTEGER" property="delFlag"/>
+        <result column="createBy" jdbcType="VARCHAR" property="createBy"/>
+        <result column="createDate" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="updateBy" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="updateDate" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+</mapper>

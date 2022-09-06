@@ -1,0 +1,26 @@
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://192.168.128.129:27017/material
+  application:
+    name: material-test
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      server-addr: #**********************
+      config:
+        name: ${spring.application.name}
+        username: #**********************
+        password: #**********************
+  rabbitmq:
+    host: 192.168.128.129
+    port: 5672
+    username: server
+    password: server
+    virtual-host: /
+    publisher-returns: true
+
+server:
+  port: 6800

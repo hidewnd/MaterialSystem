@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: material-module-workflow
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      server-addr: #**********************
+      discovery:
+        group: MATERIAL
+        namespace: #**********************
+      config:
+        group: MATERIAL
+        namespace: #**********************
+        name: ${spring.application.name}
+        username: server
+        password: server

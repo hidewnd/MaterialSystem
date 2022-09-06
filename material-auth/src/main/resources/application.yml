@@ -1,0 +1,21 @@
+#server:
+#  port: 7010
+#feign:
+#  httpclient:
+#    enabled: true
+#  okhttp:
+#    enabled: true
+#spring:
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+#    database: 0
+#security:
+#  oauth2:
+#    client:
+#      access-token-uri: http://127.0.0.1:${server.port}/oauth/token
+#      user-authorization-uri: http://127.0.0.1:${server.port}/oauth/authorize
+#      client-id: client
+#      client-secret: 123

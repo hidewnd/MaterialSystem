@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyne.module.material.mapper.RegistrationMapper">
+
+    <!--添加记录绑定物料-->
+    <insert id="bindMaterial">
+        insert into mr_material_reg(registration_id, material_id, number)
+        values (#{regId}, #{matId}, #{number})
+        ON DUPLICATE KEY UPDATE number = number + #{number}
+    </insert>
+
+    <!--更新记录的物料绑定信息-->
+    <update id="updateRegMaterial" parameterType="com.lyne.common.core.types.RegMaterial">
+        update mr_material_reg
+        set number = #{number}
+        where registration_id = #{registrationId}
+          and material_id = #{materialId}
+    </update>
+
+    <!--移除绑定信息-->
+    <delete id="removeBind">
+        delete
+        from mr_material_reg
+        where registration_id = #{regId}
+          and material_id = #{matId}
+    </delete>
+
+    <!--获取记录绑定的物料详情-->
+    <select id="getMaterial" resultMap="regMaterialMap">
+        <include refid="selectRegMaterial"/>
+        where `reg.id` = #{regId} and `mat.id` = #{matId}
+    </select>
+
+    <!--获取记录绑定物料列表-->
+    <select id="getMaterialList" resultMap="regMaterialMap">
+        <include refid="selectRegMaterial"/>
+        where `reg.id` = #{regId}
+    </select>
+
+    <!--获取所有绑定信息-->
+    <select id="getAllMaterial" resultMap="regMaterialMap">
+        <include refid="selectRegMaterial"/>
+    </select>
+
+    <!--获取记录的中的物料Id值-->
+    <select id="getMaterialIds" resultType="java.lang.String">
+        select `mat.id`
+        from `view_registration_material`
+        where `reg.id` = #{regId}
+    </select>
+
+    <!--分页查询-->
+    <select id="selectByPage" resultType="com.lyne.common.core.types.Registration">
+        select reg_id,
+               reg_sign,
+               number,
+               value,
+               status,
+               del_flag,
+               createBy,
+               createDate,
+               updateBy,
+               updateDate,
+               remark
+        from mr_registration
+    </select>
+
+    <resultMap id="materialMap" type="com.lyne.common.core.types.Material">
+        <id column="mat.id" property="materialId"/>
+        <result column="mat.type_id" property="materialTypeId"/>
+        <result column="mat.name" property="materialName"/>
+        <result column="mat.name_zh" property="materialNameZh"/>
+        <result column="mat.value" property="value"/>
+        <result column="mat.message" property="message"/>
+        <result column="mat.status" property="status"/>
+        <result column="mat.del_flag" property="delFlag"/>
+        <result column="mat.createBy" property="createBy"/>
+        <result column="mat.createDate" property="createDate"/>
+        <result column="mat.updateBy" property="updateBy"/>
+        <result column="mat.updateDate" property="updateDate"/>
+        <result column="mat.remark" property="remark"/>
+    </resultMap>
+
+    <resultMap id="regMaterialMap" type="com.lyne.common.core.types.RegMaterial">
+        <id column="reg.id" property="registrationId"/>
+        <id column="mat.id" property="materialId"/>
+        <result column="reg.sign" property="sign"/>
+        <result column="reg.number" property="number"/>
+        <association property="material" resultMap="materialMap"/>
+    </resultMap>
+
+    <sql id="selectRegMaterial">
+        select `reg.id`,
+               `reg.sign`,
+               `reg.number`,
+               `mat.id`,
+               `mat.type_id`,
+               `mat.name`,
+               `mat.name_zh`,
+               `mat.value`,
+               `mat.message`,
+               `mat.remark`,
+               `mat.status`,
+               `mat.del_flag`,
+               `mat.createBy`,
+               `mat.createDate`,
+               `mat.updateBy`,
+               `mat.updateDate`
+        from `view_registration_material`
+    </sql>
+
+    <sql id="selectMaterial">
+        select `mat.id`,
+               `mat.type_id`,
+               `mat.name`,
+               `mat.name_zh`,
+               `mat.value`,
+               `mat.message`,
+               `mat.remark`,
+               `mat.status`,
+               `mat.del_flag`,
+               `mat.createby`,
+               `mat.createdate`,
+               `mat.updateby`,
+               `mat.updatedate`
+        from `view_registration_material`
+    </sql>
+</mapper>

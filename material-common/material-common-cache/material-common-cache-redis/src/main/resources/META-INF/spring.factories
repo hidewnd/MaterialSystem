@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.lyne.common.cache.redis.config.DefaultRedisConfig,\
+  com.lyne.common.cache.redis.service.RedisService
